@@ -1,107 +1,107 @@
 <div align="center">
-<img src="https://i.ibb.co/ZzZG1ngL/file-0000000032ec821199d726e057a1ad58.png" alt="Miku — Multi-Session WhatsApp Bot" width="100%" />
-<h1>Miku — Multi-Session WhatsApp Bot</h1>
-<p><strong>One bot. Multiple WhatsApp accounts. A modular plugin system.</strong></p>
+
+<a href="https://github.com/nightx-rebel/hatsune">
+  <img src="https://i.ibb.co/ZzZG1ngL/file-0000000032ec821199d726e057a1ad58.png" alt="Miku — Multi-Session WhatsApp Bot" width="100%" />
+</a>
+
+
+# Miku — Multi-Session WhatsApp Bot
+
+### One bot. Multiple WhatsApp accounts. Limitless modularity.
+
+A plugin-powered WhatsApp automation framework built with **Node.js**, **Baileys**, and **Socksy** — designed for flexible sessions, extensible commands, and practical deployment.
+
 <p>
-<a href="https://nodejs.org/"><img src="https://img.shields.io/badge/Node.js-22.13%2B-339933?style=for-the-badge&amp;logo=nodedotjs&amp;logoColor=white" alt="Node.js 22.13 or newer" /></a>
-<a href="https://github.com/WhiskeySockets/Baileys"><img src="https://img.shields.io/badge/Baileys-7.0-25D366?style=for-the-badge&amp;logo=whatsapp&amp;logoColor=white" alt="Baileys" /></a>
-<a href="https://github.com/nightx-rebel/socksy"><img src="https://img.shields.io/badge/Powered%20by-Socksy-ff4d94?style=for-the-badge" alt="Powered by Socksy" /></a>
+  <a href="https://nodejs.org/"><img src="https://img.shields.io/badge/Node.js-22.13%2B-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="Node.js 22.13 or newer" /></a>
+  <a href="https://github.com/WhiskeySockets/Baileys"><img src="https://img.shields.io/badge/Baileys-7.0-25D366?style=for-the-badge&logo=whatsapp&logoColor=white" alt="Baileys" /></a>
+  <a href="https://github.com/nightx-rebel/socksy"><img src="https://img.shields.io/badge/Socket%20Engine-Socksy-ff4d94?style=for-the-badge" alt="Socksy socket engine" /></a>
 </p>
 <p>
-<a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue?style=flat-square" alt="MIT License" /></a>
-<img src="https://img.shields.io/badge/JavaScript-ESM-f7df1e?style=flat-square&amp;logo=javascript&amp;logoColor=black" alt="JavaScript ES modules" />
-<img src="https://img.shields.io/badge/Docker-Supported-2496ED?style=flat-square&amp;logo=docker&amp;logoColor=white" alt="Docker supported" />
-<img src="https://img.shields.io/badge/Commands-200%2B-ff69b4?style=flat-square" alt="200 or more commands" />
+  <img src="https://img.shields.io/badge/JavaScript-ESM-f7df1e?style=flat-square&logo=javascript&logoColor=black" alt="JavaScript ES modules" />
+  <img src="https://img.shields.io/badge/Deployment-Docker%20Ready-2496ED?style=flat-square&logo=docker&logoColor=white" alt="Docker supported" />
+  <img src="https://img.shields.io/badge/Architecture-Plugin--Based-8b5cf6?style=flat-square" alt="Plugin-based architecture" />
+  <img src="https://img.shields.io/badge/Commands-200%2B-ff69b4?style=flat-square" alt="200 or more commands" />
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-38bdf8?style=flat-square" alt="MIT License" /></a>
 </p>
+
 <p>
-<a href="#features">Features</a> ·
-<a href="#quick-start">Quick Start</a> ·
-<a href="#pair-your-whatsapp">Pair WhatsApp</a> ·
-<a href="#deployment">Deployment</a> ·
-<a href="#write-your-own-plugin">Plugins</a> ·
-<a href="#security">Security</a>
+  <a href="#-features">Features</a> &nbsp;·&nbsp;
+  <a href="#-quick-start">Quick Start</a> &nbsp;·&nbsp;
+  <a href="#-pair-whatsapp">Pair WhatsApp</a> &nbsp;·&nbsp;
+  <a href="#-deployment">Deployment</a> &nbsp;·&nbsp;
+  <a href="#-plugin-development">Plugins</a> &nbsp;·&nbsp;
+  <a href="#-security">Security</a>
 </p>
+
+<img src="https://capsule-render.vercel.app/api?type=rect&height=2&section=header&color=0:ff4d94,50:8b5cf6,100:22d3ee" alt="" width="100%" />
+
 </div>
 
+## ✦ At a glance
 
-## Table of Contents
-
-- [About](#about)
-- [Features](#features)
-- [Powered by Socksy](#powered-by-socksy)
-- [Quick Start](#quick-start)
-- [Pair Your WhatsApp](#pair-your-whatsapp)
-- [Deployment](#deployment)
-  - [Heroku](#deploy-to-heroku)
-  - [Railway](#deploy-to-railway)
-  - [Game and Bot Hosting Panels](#deploy-to-a-hosting-panel)
-  - [Local and Termux](#run-locally)
-  - [Docker](#deploy-with-docker)
-- [How to Use](#how-to-use)
-- [Environment Variables](#environment-variables)
-- [HTTP API](#http-api)
-- [Telegram Control Bot](#telegram-control-bot)
-- [Command Categories](#command-categories)
-- [Write Your Own Plugin](#write-your-own-plugin)
-- [Project Structure](#project-structure)
-- [Troubleshooting](#troubleshooting)
-- [Security](#security)
-- [License](#license)
-
----
-
-## About
-
-**Miku** is a modular, plugin-based WhatsApp bot built with Node.js and Baileys. It can manage multiple WhatsApp accounts from a single deployment, with shared tooling for commands, events, session management, and storage.
-
-### Why Miku?
-
-- **Multi-session support** — manage multiple WhatsApp numbers from one process.
-- **Pairing-code login** — link a WhatsApp account without scanning a QR code.
-- **Plugin-based commands and events** — keep features separated into individual files.
-- **Session management** — restore saved sessions and control them through an HTTP API or Telegram bot.
-- **Queues and limits** — configure concurrency, task timeouts, duplicate suppression, and command rate limits.
-- **Flexible storage** — use local SQLite or PostgreSQL for authentication data, with optional Turso settings sync.
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <h3>⚡ Built for multiple sessions</h3>
+      Run and manage several WhatsApp accounts from one deployment, with saved-session restoration and a shared event system.
+    </td>
+    <td width="50%" valign="top">
+      <h3>🧩 Extend with plugins</h3>
+      Keep commands and event handlers modular. Add supported plugin files without mixing every feature into the core.
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <h3>🛠️ Flexible operations</h3>
+      Use the HTTP API or optional Telegram control bot to inspect sessions and manage the running instance.
+    </td>
+    <td width="50%" valign="top">
+      <h3>💾 Choose your storage</h3>
+      Use local SQLite for a persistent single-host setup or PostgreSQL for cloud deployments. Optional Turso settings sync is available.
+    </td>
+  </tr>
+</table>
 
 > [!TIP]
-> Use `.menu` to view commands loaded by the running instance, or `.list` to see command names, aliases, and descriptions. The runtime list is the source of truth because individual plugins can fail to load.
+> Run `.menu` to see commands loaded by the running instance, or `.list` to inspect command names, aliases, and descriptions. The runtime list is the source of truth because individual plugins may fail to load.
 
-## Features
+## ✨ Features
 
-### Core system
+<table>
+  <thead>
+    <tr><th align="left">Area</th><th align="left">What you get</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Multi-session manager</strong></td><td>Start, stop, and restore multiple WhatsApp sessions from one process.</td></tr>
+    <tr><td><strong>Pairing-code login</strong></td><td>Link a WhatsApp account through Linked devices without scanning a QR code.</td></tr>
+    <tr><td><strong>Plugin loader</strong></td><td>Load modular command and event handlers from plugin files.</td></tr>
+    <tr><td><strong>Hot reload</strong></td><td>Reload supported plugins without intentionally disconnecting every session.</td></tr>
+    <tr><td><strong>Task scheduling</strong></td><td>Configure concurrency, queue limits, timeouts, and per-session/global work limits.</td></tr>
+    <tr><td><strong>Message safeguards</strong></td><td>Duplicate suppression, stale-message filtering, and per-sender command rate limits.</td></tr>
+    <tr><td><strong>Graceful shutdown</strong></td><td>Handle shutdowns cleanly and shed low-priority work when the event loop is delayed.</td></tr>
+    <tr><td><strong>Storage options</strong></td><td>SQLite or PostgreSQL authentication storage, plus optional Turso settings sync.</td></tr>
+    <tr><td><strong>Management interfaces</strong></td><td>Inspect sessions and loaded plugins through the HTTP API or Telegram control bot.</td></tr>
+  </tbody>
+</table>
 
-| Feature | Description |
-|---|---|
-| Multi-session manager | Start, stop, and restore multiple WhatsApp sessions. |
-| Pairing-code login | Link a number through WhatsApp's **Linked devices** settings. |
-| Plugin loader | Load command and event handlers from plugin files. |
-| Hot reload | Add or edit supported plugins and reload them without intentionally disconnecting all sessions. |
-| Task scheduler | Configure per-session and global concurrency, queue limits, and timeouts. |
-| Message protection | Duplicate suppression, stale-message filtering, and per-sender command rate limits. |
-| Graceful shutdown | Handle shutdowns and reduce low-priority work when the event loop is delayed. |
-| Multiple storage options | Use SQLite locally or PostgreSQL for authentication storage; optionally sync settings through Turso. |
-| Management interfaces | Inspect sessions and loaded plugins through the HTTP API or Telegram control bot. |
-
-### Command capabilities
+### Command ecosystem
 
 | Category | Examples |
 |---|---|
-| 👥 Group management | Moderation, member management, group settings, welcome and goodbye messages |
-| ⬇️ Downloaders | YouTube, Instagram, TikTok, Facebook, Twitter, Spotify, MEGA, and other supported sources |
-| 🔎 Search | Web, images, GIFs, Wikipedia, lyrics, npm, and app searches |
-| 🎨 Media tools | Stickers, image/audio/video conversion, text-to-speech, and image effects |
-| 🌸 Anime | Anime, manga, character, and related commands |
-| 🎮 Games | Mini-games and interactive commands |
-| 🛠️ Utilities and AI | QR tools, weather, screenshots, AI integrations, URL tools, and utilities |
-| 👑 Owner tools | Broadcast, profile settings, privacy tools, and block-list management |
-| ⚙️ Automation | Auto-read, auto-react, auto-status, anti-call, and other event-based plugins |
-| 🙏 Devotional content | Gita, Quran, Ramayana, Bible, and related commands |
+| 👥 **Group management** | Moderation, member management, group settings, welcome and goodbye messages |
+| ⬇️ **Downloaders** | YouTube, Instagram, TikTok, Facebook, Twitter, Spotify, MEGA, and other supported sources |
+| 🔎 **Search** | Web, images, GIFs, Wikipedia, lyrics, npm, and app searches |
+| 🎨 **Media tools** | Stickers, image/audio/video conversion, text-to-speech, and image effects |
+| 🌸 **Anime** | Anime, manga, character, and related commands |
+| 🎮 **Games** | Mini-games and interactive commands |
+| 🧠 **Utilities and AI** | QR tools, weather, screenshots, AI integrations, URL tools, and utilities |
+| 👑 **Owner tools** | Broadcast, profile settings, privacy tools, and block-list management |
+| ⚙️ **Automation** | Auto-read, auto-react, auto-status, anti-call, and event-based plugins |
+| 🙏 **Devotional content** | Gita, Quran, Ramayana, Bible, and related commands |
 
-The exact commands available depend on which plugins load successfully and which external services are configured.
+<sub>Command availability depends on which plugins load successfully and which external services are configured.</sub>
 
----
-
-## Powered by Socksy
+## 🧠 Powered by Socksy
 
 Miku uses **[Socksy](https://github.com/nightx-rebel/socksy)** as its multi-account socket engine through the `wa-multi-socket` dependency:
 
@@ -117,23 +117,21 @@ Socksy sits on top of Baileys and provides:
 
 Want to build another bot on the same engine? Explore the **[Socksy repository](https://github.com/nightx-rebel/socksy)**.
 
-### High-level architecture
+### Architecture
 
 ```mermaid
 flowchart TD
-  A["index.js: Startup and HTTP API"] --> B["Session Manager"]
-  B --> C["Socksy: Multi-socket engine"]
+  A["index.js · Startup & HTTP API"] --> B["Session Manager"]
+  B --> C["Socksy · Multi-socket engine"]
   C --> D["WhatsApp"]
-  C --> E[("Authentication Store: SQLite / PostgreSQL")]
-  C --> F["client.js: Events and Queues"]
+  C --> E[("Authentication Store<br/>SQLite / PostgreSQL")]
+  C --> F["client.js · Events & Queues"]
   F --> G["Plugins"]
-  F --> H[("Settings: SQLite + optional Turso sync")]
+  F --> H[("Settings<br/>SQLite + optional Turso sync")]
   A -.-> I["Telegram Control Bot"]
 ```
 
----
-
-## Quick Start
+## 🚀 Quick Start
 
 ### Requirements
 
@@ -144,13 +142,13 @@ flowchart TD
 ### Install and run
 
 ```bash
-git clone https://github.com/nightx-rebel/miku.git
-cd miku
+git clone https://github.com/nightx-rebel/hatsune.git
+cd hatsune
 npm install
 npm start
 ```
 
-Once the server starts, open **`http://localhost:3000`**. A healthy instance should return a response similar to:
+When the server starts, open **`http://localhost:3000`**. A healthy instance should return a response similar to:
 
 ```json
 {
@@ -161,15 +159,13 @@ Once the server starts, open **`http://localhost:3000`**. A healthy instance sho
 ```
 
 > [!TIP]
-> If `PORT` is not set, Miku selects the first available port starting at `3000`. Check your startup logs if it chooses a different port.
+> If `PORT` is not set, Miku selects the first available port starting at `3000`. Check the startup logs if it chooses a different port.
 
----
-
-## Pair Your WhatsApp
+## 📱 Pair WhatsApp
 
 Use your phone number with its **country calling code**, digits only. Do not include `+`, spaces, or hyphens.
 
-For example, replace the sample number below with your own number:
+For example, replace the sample number with your own number:
 
 ```bash
 curl http://localhost:3000/pair/919812345678
@@ -181,34 +177,34 @@ The endpoint should return a pairing code similar to `ABCD-EFGH`.
 2. Go to **Settings → Linked devices → Link a device**.
 3. Select **Link with phone number instead**.
 4. Enter the pairing code returned by Miku.
-5. After the account is linked, send `.menu` in a chat to view available commands.
+5. After linking, send `.menu` in a chat to view the available commands.
 
 Miku saves the session for restoration after a restart, subject to your configured storage and deployment persistence.
 
 > [!NOTE]
-> Only one pairing attempt per number can run at a time. Do not publish your pairing endpoint: anyone who can access an unprotected endpoint may be able to initiate pairing attempts.
+> Only one pairing attempt per number can run at a time. Do not publish an unprotected pairing endpoint: anyone who can access it may be able to initiate pairing attempts.
 
----
+## ☁️ Deployment
 
-## Deployment
+Choose the deployment method that matches your hosting environment. **Persistent storage matters:** losing the authentication store can require you to pair your WhatsApp accounts again.
 
-Choose the deployment method that matches your hosting environment. Persistent storage is important: losing the authentication store can require you to pair your WhatsApp accounts again.
-
-| Deployment | Best suited for | Important note |
+| Platform | Best suited for | Important note |
 |---|---|---|
 | [Heroku](#deploy-to-heroku) | Heroku applications | Use PostgreSQL for login storage; local settings may reset unless synced. |
 | [Railway](#deploy-to-railway) | Git-based cloud deployments | Configure PostgreSQL and persistent storage where needed. |
 | [Hosting panel](#deploy-to-a-hosting-panel) | Pterodactyl-style and bot panels | Keep the `data/` directory persistent. |
-| [Local / Termux](#run-locally) | Linux, macOS, Windows/WSL, and Android Termux | Local SQLite is suitable for a single persistent environment. |
+| [Local / Termux](#run-locally) | Linux, macOS, Windows/WSL, and Android Termux | Local SQLite suits a single persistent environment. |
 | [Docker](#deploy-with-docker) | Container-based hosting | Mount a persistent volume at `/app/data`. |
 
 ### Deploy to Heroku
 
-<a href="https://heroku.com/deploy?template=https://github.com/nightx-rebel/miku"><img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy Miku to Heroku" height="42" /></a>
+<p>
+  <a href="https://heroku.com/deploy?template=https://github.com/nightx-rebel/hatsune"><img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy Hatsune to Heroku" height="44" /></a>
+</p>
 
 1. Select the deploy button and sign in to Heroku.
 2. Choose an application name and region.
-3. Configure the optional environment variables as needed.
+3. Configure environment variables as needed.
 4. Deploy the application.
 5. Open `https://YOUR-APP.herokuapp.com/pair/YOUR_NUMBER` to request a pairing code.
 
@@ -219,14 +215,16 @@ The repository's Heroku deployment configuration is intended to provide:
 - A `web` dyno defined by the `Procfile`.
 
 > [!WARNING]
-> The local filesystem on Heroku is temporary. PostgreSQL can preserve authentication data, but settings stored only in local files may reset after a restart or redeploy. Configure both `TURSO_DATABASE_URL` and `TURSO_AUTH_TOKEN` if your deployment uses Turso settings sync.
+> Heroku's local filesystem is temporary. PostgreSQL can preserve authentication data, but settings stored only in local files may reset after a restart or redeploy. Configure both `TURSO_DATABASE_URL` and `TURSO_AUTH_TOKEN` if your deployment uses Turso settings sync.
 
 ### Deploy to Railway
 
-<a href="https://railway.com/new"><img src="https://railway.com/button.svg" alt="Deploy on Railway" height="42" /></a>
+<p>
+  <a href="https://railway.com/new"><img src="https://railway.com/button.svg" alt="Deploy on Railway" height="44" /></a>
+</p>
 
 1. Open Railway and choose **Deploy from GitHub repo**.
-2. Select your fork of `nightx-rebel/miku`.
+2. Select your fork of `nightx-rebel/hatsune`.
 3. Add a PostgreSQL database to the project.
 4. In the Miku service's **Variables** section, set the database URL. For a service named `Postgres`, the reference may look like this:
 
@@ -234,11 +232,11 @@ The repository's Heroku deployment configuration is intended to provide:
    DATABASE_URL=${{Postgres.DATABASE_URL}}
    ```
 
-5. Add any other environment variables you need.
+5. Add other environment variables you need.
 6. Under **Settings → Networking**, generate a public domain if you need external access.
 7. Open `https://YOUR-DOMAIN/pair/YOUR_NUMBER` to request a pairing code.
 
-**Persistence:** if settings or other files must survive redeployments, configure an appropriate persistent volume for the application's data directory.
+**Persistence:** configure an appropriate persistent volume for the application data directory if settings or other files must survive redeployments.
 
 > [!WARNING]
 > In this configuration, setting `RAILWAY_STATIC_URL` or `WEBHOOK_BASE_URL` switches the Telegram bot to webhook mode, but the project does not currently include a webhook receiver. Leave both variables unset to use polling.
@@ -251,7 +249,7 @@ These steps are for Pterodactyl-style game or bot hosting panels and similar env
 2. Upload and extract the project, or clone it into the server directory:
 
    ```bash
-   git clone https://github.com/nightx-rebel/miku.git .
+   git clone https://github.com/nightx-rebel/hatsune.git .
    ```
 
 3. Configure the startup settings:
@@ -283,8 +281,8 @@ Miku can run on Linux, macOS, Windows (WSL recommended), and **Termux on Android
 
 ```bash
 # Install Node.js 22.13+ and ffmpeg first.
-git clone https://github.com/nightx-rebel/miku.git
-cd miku
+git clone https://github.com/nightx-rebel/hatsune.git
+cd hatsune
 npm install
 
 # Optional: create a local environment file.
@@ -319,24 +317,22 @@ docker run -d --name miku --restart unless-stopped \
   miku
 ```
 
-Add `-e DATABASE_URL=...` or `-e BOT_TOKEN=...` only if you need those integrations. The volume mount preserves data under `/app/data` when the container is recreated. Keep your database credentials private and avoid exposing the unauthenticated API to the public internet.
+Add `-e DATABASE_URL=...` or `-e BOT_TOKEN=...` only if you need those integrations. The volume mount preserves data under `/app/data` when the container is recreated. Keep database credentials private and avoid exposing an unauthenticated API to the public internet.
 
----
-
-## How to Use
+## 🎮 How to Use
 
 The default command prefix is **`.`**.
 
 | Command | Description |
 |---|---|
-| `.menu` | Show the loaded commands grouped by category. |
-| `.menu download` | Show commands for a specific category. |
+| `.menu` | Show loaded commands grouped by category. |
+| `.menu download` | Show commands in a specific category. |
 | `.list` | Show command names, aliases, and descriptions. |
 | `.ping` | Check response speed. |
 | `.uptime` | Show how long the bot has been running. |
 | `.alive` | Check whether the bot is responding. |
 
-### Examples
+### Try a few examples
 
 ```text
 .ytsearch lofi music
@@ -349,14 +345,12 @@ The default command prefix is **`.`**.
 > [!NOTE]
 > Group moderation commands may require the bot to be a group admin. Owner-only commands are restricted to the configured bot owner.
 
----
-
-## Environment Variables
+## ⚙️ Environment Variables
 
 Variables are optional unless required by a feature or deployment. Create a `.env` file locally, or use your hosting provider's environment-variable settings.
 
 > [!CAUTION]
-> Never commit `.env` files, API keys, cookies, bot tokens, or database credentials. Treat them as passwords.
+> Never commit `.env` files, API keys, cookies, bot tokens, or database credentials. Treat them like passwords.
 
 ### Core settings
 
@@ -389,7 +383,7 @@ Variables are optional unless required by a feature or deployment. Create a `.en
 | `TGTOKEN` | Empty | Token for the Telegram sticker downloader. |
 
 <details>
-<summary><strong>Performance and scheduler settings</strong></summary>
+<summary><strong>▸ Performance and scheduler settings</strong></summary>
 
 | Variable | Default | Purpose |
 |---|---:|---|
@@ -417,7 +411,7 @@ Variables are optional unless required by a feature or deployment. Create a `.en
 </details>
 
 <details>
-<summary><strong>Message serializer settings</strong></summary>
+<summary><strong>▸ Message serializer settings</strong></summary>
 
 | Variable | Default | Purpose |
 |---|---:|---|
@@ -432,7 +426,7 @@ Variables are optional unless required by a feature or deployment. Create a `.en
 </details>
 
 <details>
-<summary><strong>Optional plugin settings</strong></summary>
+<summary><strong>▸ Optional plugin settings</strong></summary>
 
 These are only needed by plugins that use the corresponding integration.
 
@@ -453,7 +447,7 @@ These are only needed by plugins that use the corresponding integration.
 </details>
 
 <details>
-<summary><strong>Hosting variables</strong></summary>
+<summary><strong>▸ Hosting variables</strong></summary>
 
 | Variable | Notes |
 |---|---|
@@ -465,7 +459,7 @@ These are only needed by plugins that use the corresponding integration.
 
 ### Example `.env`
 
-Copy the following as a starting point and uncomment only the settings you use:
+Copy this as a starting point and uncomment only the settings you use:
 
 ```dotenv
 PORT=3000
@@ -479,9 +473,7 @@ LOG_LEVEL=info
 # BOT_TOKEN=your-telegram-bot-token
 ```
 
----
-
-## HTTP API
+## 🔌 HTTP API
 
 Miku exposes these HTTP routes in the supplied configuration:
 
@@ -510,11 +502,9 @@ curl -X POST http://localhost:3000/logout/SESSION_ID
 - **Logout** disconnects the session and removes its saved login. The account must be paired again before it can reconnect.
 
 > [!CAUTION]
-> **The HTTP API has no authentication by default.** Do not expose it directly to the public internet. Restrict access through a private network, firewall, VPN, or an authenticated reverse proxy. Pay particular attention to pairing and logout routes.
+> **The HTTP API has no authentication by default.** Do not expose it directly to the public internet. Restrict access with a private network, firewall, VPN, or authenticated reverse proxy. Pay special attention to pairing and logout routes.
 
----
-
-## Telegram Control Bot
+## 🤖 Telegram Control Bot
 
 Set `BOT_TOKEN` to enable the Telegram control bot. Keep `OFFTELEBOT` unset or set it to `false` to avoid disabling the integration.
 
@@ -531,9 +521,7 @@ Set `BOT_TOKEN` to enable the Telegram control bot. Keep `OFFTELEBOT` unset or s
 
 Administrative actions are restricted to the configured Telegram group and its admins. Keep the Telegram bot token private.
 
----
-
-## Command Categories
+## 🗂️ Command Categories
 
 The lists below show documented command names and aliases. Availability depends on successful plugin loading and configuration; use `.menu` or `GET /plugins` for the live list.
 
@@ -600,9 +588,7 @@ The lists below show documented command names and aliases. Availability depends 
 
 </details>
 
----
-
-## Write Your Own Plugin
+## 🧩 Plugin Development
 
 Add a `.js` file inside `plugins/`, then restart Miku or use `.reload` if supported by your current deployment.
 
@@ -643,12 +629,10 @@ Module({
 - Files under `plugins/bin/` and files ending in `.bak` are not loaded as plugins.
 - After many reloads in production, restart the bot once if needed.
 
----
-
-## Project Structure
+## 📁 Project Structure
 
 ```text
-miku/
+hatsune/
 ├── index.js          # Startup, HTTP API, and shutdown
 ├── config.js         # Defaults and environment configuration
 ├── lib/
@@ -666,9 +650,7 @@ miku/
 └── heroku.yml
 ```
 
----
-
-## Troubleshooting
+## 🧯 Troubleshooting
 
 <details>
 <summary><strong>Pairing code does not work</strong></summary>
@@ -715,7 +697,7 @@ miku/
 Install FFmpeg and confirm it is available on your `PATH`:
 
 ```bash
-# Debian/Ubuntu
+# Debian / Ubuntu
 sudo apt install ffmpeg
 
 # Termux
@@ -736,13 +718,11 @@ pkg install ffmpeg
 <details>
 <summary><strong>Settings reset after a Heroku restart</strong></summary>
 
-If the current settings adapter uses Turso sync, set both `TURSO_DATABASE_URL` and `TURSO_AUTH_TOKEN`. Confirm the deployed version actually supports the configured adapter.
+If the current settings adapter uses Turso sync, set both `TURSO_DATABASE_URL` and `TURSO_AUTH_TOKEN`. Confirm the deployed version supports the configured adapter.
 
 </details>
 
----
-
-## Security
+## 🔐 Security
 
 - **The HTTP API is unauthenticated by default.** Restrict it with a firewall, private network, VPN, or authenticated proxy before exposing a deployment publicly.
 - **Protect credentials.** Pairing codes, session IDs, database URLs, Telegram tokens, and cookies are sensitive. Never publish them in README files, screenshots, logs, or commits.
@@ -751,16 +731,18 @@ If the current settings adapter uses Turso sync, set both `TURSO_DATABASE_URL` a
 - **Review third-party integrations.** Plugins may call external APIs whose availability, requirements, or behavior can change.
 - **Use the bot responsibly.** Baileys is an unofficial WhatsApp Web client. Platform changes may break compatibility, and misuse can put accounts at risk. Do not use Miku for spam or unsolicited bulk messaging.
 
----
-
-## License
+## 📜 License
 
 Miku is released under the **MIT License**. See [`LICENSE`](LICENSE) for the full text.
 
 <div align="center">
-<hr />
-<p><strong>Made with ❤️ by <a href="https://github.com/nightx-rebel">nightx-rebel</a></strong></p>
-<p><a href="https://github.com/nightx-rebel/miku">Miku Repository</a> · <a href="https://github.com/nightx-rebel/socksy">Socksy Engine</a></p>
-<p>⭐ If Miku is useful to you, consider giving the repository a star!</p>
-<img src="https://capsule-render.vercel.app/api?type=waving&amp;color=gradient&amp;customColorList=12,20,24&amp;height=110&amp;section=footer" alt="" width="100%" />
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:ff4d94,50:8b5cf6,100:22d3ee&height=120&section=footer" alt="" width="100%" />
+
+### Made with ❤️ by [nightx-rebel](https://github.com/nightx-rebel)
+
+[**Hatsune Repository**](https://github.com/nightx-rebel/hatsune) &nbsp;·&nbsp; [**Socksy Engine**](https://github.com/nightx-rebel/socksy)
+
+⭐ If Miku is useful to you, consider giving the repository a star!
+
 </div>
