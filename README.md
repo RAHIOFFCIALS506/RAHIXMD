@@ -45,8 +45,7 @@
 
 <a href="https://heroku.com/deploy?template=https://github.com/nightx-rebel/hatsune"><img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy to Heroku" height="38" /></a>
 &nbsp;
-<a href="https://render.com/deploy?repo=https://github.com/nightx-rebel/hatsune"><img src="https://render.com/images/deploy-to-render-button.svg" alt="Deploy to Render" height="38" /></a>
-&nbsp;
+
 <a href="https://railway.com/new"><img src="https://img.shields.io/badge/Deploy%20on-Railway-0B0D0E?style=for-the-badge&logo=railway&logoColor=white" alt="Deploy on Railway" height="38" /></a>
 
 </div>
