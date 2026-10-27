@@ -1,10 +1,61 @@
 import axios from "axios";
 import { Module } from "../../lib/plugins.js";
-import cache from "../../lib/cache/cache-remote.js";
+
+const UA = { "User-Agent": "Mozilla/5.0" };
+const e = encodeURIComponent;
+
+const apisFor = (url) => [
+  `https://kiraxmd-api.vercel.app/api/tiktok?url=${e(url)}`,
+  `https://api-aswin-sparky.koyeb.app/api/downloader/tiktok?url=${e(url)}`,
+  `https://jerrycoder.oggyapi.workers.dev/down/tiktok?url=${e(url)}`,
+  `https://jerrycoder.oggyapi.workers.dev/down/tiktok-v1?url=${e(url)}`,
+];
 
 function extractUrl(text) {
-  const match = (text || "").match(/https?:\/\/[^\s]+/i);
-  return match ? match[0] : null;
+  const m = (text || "").match(/https?:\/\/[^\s]+/i);
+  return m ? m[0] : null;
+}
+
+const pickVideo = (d) =>
+  d?.result?.no_watermark ||
+  d?.result?.nowm ||
+  d?.data?.no_watermark ||
+  d?.data?.nowm ||
+  d?.data?.play ||
+  d?.result?.video ||
+  d?.result?.download ||
+  d?.result?.url ||
+  d?.data?.video ||
+  d?.data?.download ||
+  d?.data?.url ||
+  d?.video ||
+  d?.url;
+
+const pickCaption = (d) =>
+  d?.result?.title ||
+  d?.result?.caption ||
+  d?.result?.desc ||
+  d?.data?.title ||
+  d?.data?.caption ||
+  d?.data?.desc ||
+  d?.title ||
+  d?.caption ||
+  "";
+
+// Try every API until one actually returns a video link
+async function resolveVideo(url) {
+  for (const api of apisFor(url)) {
+    try {
+      const res = await axios.get(api, { timeout: 20_000, headers: UA });
+      const video = pickVideo(res.data);
+      if (typeof video === "string" && video.startsWith("http")) {
+        return { video, caption: pickCaption(res.data) };
+      }
+    } catch {
+      console.log("[tiktok] API failed:", api);
+    }
+  }
+  return null;
 }
 
 Module({
@@ -16,115 +67,58 @@ Module({
   let url = (match || "").trim();
 
   if (!url) {
+    // fall back to a replied message that contains a link
     const quoted =
-      message.raw.message?.extendedTextMessage?.contextInfo?.quotedMessage;
+      message.raw?.message?.extendedTextMessage?.contextInfo?.quotedMessage;
     if (quoted) {
-      const text =
+      url = extractUrl(
         quoted.conversation ||
-        quoted.extendedTextMessage?.text ||
-        quoted.imageMessage?.caption ||
-        quoted.videoMessage?.caption ||
-        quoted.documentMessage?.caption ||
-        "";
-      url = extractUrl(text);
+          quoted.extendedTextMessage?.text ||
+          quoted.imageMessage?.caption ||
+          quoted.videoMessage?.caption ||
+          quoted.documentMessage?.caption ||
+          "",
+      );
     }
   } else {
     url = extractUrl(url) || url;
   }
 
-  if (!url || !url.startsWith("http")) {
+  if (!url || !/^https?:\/\//i.test(url)) {
     return message.send(
-      "❌ Example:\n.tt https://vt.tiktok.com/xxxxx\n\nor reply to a TikTok link with .tt",
+      "🎵 *Usage:* .tt <TikTok link>\n\nExample:\n.tt https://vt.tiktok.com/xxxxx\n\n_or reply to a TikTok link with_ .tt",
     );
   }
 
   try {
     await message.react("⏳");
 
-    const key = cache.cacheKey(url);
+    const info = await resolveVideo(url);
+    if (!info) throw new Error("All APIs failed to fetch this TikTok video.");
 
-    const { data: videoBuffer, meta } = await cache.getOrFetch(
-      key,
-      async () => {
-        const apis = [
-          `https://kiraxmd-api.vercel.app/api/tiktok?url=${encodeURIComponent(url)}`,
-          `https://api-aswin-sparky.koyeb.app/api/downloader/tiktok?url=${encodeURIComponent(url)}`,
-          `https://jerrycoder.oggyapi.workers.dev/down/tiktok?url=${encodeURIComponent(url)}`,
-          `https://jerrycoder.oggyapi.workers.dev/down/tiktok-v1?url=${encodeURIComponent(url)}`,
-        ];
+    const videoRes = await axios.get(info.video, {
+      responseType: "arraybuffer",
+      timeout: 60_000,
+      headers: UA,
+    });
+    const buffer = Buffer.from(videoRes.data);
 
-        let data = null;
-        for (const api of apis) {
-          try {
-            const res = await axios.get(api, { timeout: 20_000 });
-            if (res.data) {
-              data = res.data;
-              break;
-            }
-          } catch {
-            console.log("TIKTOK API FAILED:", api);
-          }
-        }
-        if (!data)
-          throw new Error("All APIs failed to fetch the TikTok video.");
-
-        const postCaption =
-          data?.result?.title ||
-          data?.result?.caption ||
-          data?.result?.desc ||
-          data?.data?.title ||
-          data?.data?.caption ||
-          data?.data?.desc ||
-          data?.title ||
-          data?.caption ||
-          "";
-
-        const video =
-          data?.result?.no_watermark ||
-          data?.result?.nowm ||
-          data?.data?.no_watermark ||
-          data?.data?.nowm ||
-          data?.data?.play ||
-          data?.result?.video ||
-          data?.result?.download ||
-          data?.result?.url ||
-          data?.data?.video ||
-          data?.data?.download ||
-          data?.data?.url ||
-          data?.video ||
-          data?.url;
-
-        if (!video) throw new Error("No video found in the API response.");
-
-        const videoRes = await axios.get(video, {
-          responseType: "arraybuffer",
-          timeout: 60_000,
-        });
-
-        return {
-          data: Buffer.from(videoRes.data),
-          meta: {
-            ext: "mp4",
-            mimetype: "video/mp4",
-            url,
-            caption: postCaption,
-          },
-        };
-      },
-    );
+    const caption = info.caption
+      ? `🎵 ${info.caption}\n\n> _TikTok Downloader_`
+      : "> _TikTok Downloader_";
 
     await message.conn.sendMessage(
       message.from,
-      { video: videoBuffer, caption: meta?.caption || "" },
+      { video: buffer, mimetype: "video/mp4", caption },
       { quoted: message.raw },
     );
 
     await message.react("✅");
-  } catch (e) {
-    console.log("TIKTOK ERROR:", e);
-    await message.send(
-      `❌ Download Failed\n\n⚠️ ${e.message || "Unknown Error"}`,
-    );
+  } catch (err) {
+    console.error("[tiktok] error:", err.message);
     await message.react("❌");
+    await message.send(
+      `❌ *Download failed*\n\n⚠️ ${err.message || "Unknown error"}`,
+    );
   }
 });

@@ -1,4 +1,4 @@
-import { Module } from "../lib/plugins.js";
+import { Module } from "../../lib/plugins.js";
 
 Module({ on: "call", name: "anticall" })(async (ctx) => {
   const { db, toBool, sessionId, sock, data: calls } = ctx;

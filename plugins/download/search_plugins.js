@@ -2,8 +2,6 @@ import fs from "fs/promises";
 import fss from "fs";
 import os from "os";
 import path from "path";
-import ffmpeg from "fluent-ffmpeg";
-import ffmpegPath from "ffmpeg-static";
 import axios from "axios";
 import stream from "stream";
 import { promisify } from "util";
@@ -13,7 +11,6 @@ import {
   generateWAMessageFromContent,
   downloadMediaMessage,
 } from "@whiskeysockets/baileys";
-import { StickerTypes } from "wa-sticker-formatter";
 import { Module } from "../../lib/plugins.js";
 
 import pkg from "gifted-btns";
@@ -170,121 +167,6 @@ Module({
   }
 });
 
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-//  SHAZAM
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Module({
-  command: "whatsong",
-  aliases: ["whatmusic"],
-  package: "search",
-  description: "Identify music from audio or video messages",
-})(async (message, match) => {
-  const sock = message.conn;
-  const react = async (emoji) =>
-    await sock.sendMessage(message.from, {
-      react: { text: emoji, key: message.key },
-    });
-  const botPrefix = message.prefix || ".";
-  const botFooter = message.botFooter || "SHAZAM";
-  const botPic =
-    "https://files.gifted.co.ke/image/ZAwgoogle-images-1548419288.jpg";
-
-  const isUrl = (s) => /^https?:\/\//i.test(s?.trim());
-  const quoted = message.quoted ? message.quoted.message : null;
-
-  if (!match?.trim() && !quoted) {
-    await react("❌");
-    return message.send(
-      `Please reply to an audio/video message or provide a URL\n\nUsage: ${botPrefix}shazam <audio/video url>`,
-    );
-  }
-
-  const quotedAudio = quoted?.audioMessage;
-  const quotedVideo = quoted?.videoMessage;
-
-  if (!isUrl(match) && !quotedAudio && !quotedVideo) {
-    await react("❌");
-    return message.send(
-      "The quoted message doesn't contain any audio or video",
-    );
-  }
-
-  try {
-    let fileUrl;
-    await react("⏳");
-
-    if (isUrl(match)) {
-      fileUrl = match.trim();
-    } else {
-      const mediaMsg = quotedAudio || quotedVideo;
-      const isAudio = !!quotedAudio;
-      const durationSecs = mediaMsg?.seconds || mediaMsg?.duration || 0;
-      let buffer = await getMediaBuffer(mediaMsg, isAudio ? "audio" : "video");
-      const ext = isAudio ? "mp3" : "mp4";
-
-      if (durationSecs > 20) {
-        const tmpIn = path.join(os.tmpdir(), `shazam_in_${Date.now()}.${ext}`);
-        const tmpOut = path.join(
-          os.tmpdir(),
-          `shazam_out_${Date.now()}.${ext}`,
-        );
-        fss.writeFileSync(tmpIn, buffer);
-        await new Promise((resolve, reject) => {
-          ffmpeg.setFfmpegPath(ffmpegPath);
-          ffmpeg(tmpIn)
-            .outputOptions(["-t", "20", "-c", "copy"])
-            .on("end", resolve)
-            .on("error", reject)
-            .save(tmpOut);
-        });
-        buffer = fss.readFileSync(tmpOut);
-        fss.unlinkSync(tmpIn);
-        fss.unlinkSync(tmpOut);
-      }
-
-      const uploadResult = await uploadToCatbox(buffer, `audio.${ext}`);
-      fileUrl = uploadResult.url;
-    }
-
-    const apiUrl = `${GIFTED_API}/api/search/shazam?apikey=${GIFTED_KEY}&url=${encodeURIComponent(fileUrl)}`;
-    const res = await axios.get(apiUrl, { timeout: 60000 });
-
-    if (!res.data?.success || !res.data?.result) {
-      await react("❌");
-      return message.send(
-        "❌ Could not identify the music. Please try a clearer audio clip.",
-      );
-    }
-
-    const r = res.data.result;
-    let txt = `*– ( SHAZAM ) –*\n\n🎵 *Title:* ${r.title || r.track?.title || "Unknown"}\n`;
-    if (r.artist || r.track?.subtitle || r.artists)
-      txt += `🎤 *Artist:* ${r.artist || r.track?.subtitle || r.artists}\n`;
-    if (r.album) txt += `💿 *Album:* ${r.album}\n`;
-    if (r.genres || r.track?.genres?.primary)
-      txt += `🎼 *Genre:* ${r.genres || r.track?.genres?.primary}\n`;
-    if (r.releasedate || r.release_date)
-      txt += `📅 *Released:* ${r.releasedate || r.release_date}\n`;
-    txt += `\n> *${botFooter}*`;
-
-    const coverart =
-      r.coverart ||
-      r.track?.images?.coverarthq ||
-      r.track?.images?.coverart ||
-      botPic;
-
-    await sock.sendMessage(
-      message.from,
-      { image: { url: coverart }, caption: txt },
-      { quoted: message },
-    );
-    await react("✅");
-  } catch (e) {
-    console.error("Shazam error:", e);
-    await react("❌");
-    message.send(`❌ Error identifying music: ${e.message}`);
-  }
-});
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 //  GOOGLE SEARCH
