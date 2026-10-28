@@ -1,5 +1,7 @@
 import "dotenv/config";
 import express from "express";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import getPort from "get-port";
 import { forceLoadPlugins, getPluginInfo } from "./lib/plugins.js";
 import { manager } from "./lib/manager.js";
@@ -121,9 +123,50 @@ const withSid = (handler) =>
 // ── Express setup ──────────────────────────────────────────────────────────────
 
 const app = express();
+app.set("trust proxy", 1); // Heroku / reverse proxies: real client IP for rate limiting
 app.use(express.json({ limit: "1mb" }));
 
-app.get("/", (_req, res) => {
+// ── Website (pair page) ────────────────────────────────────────────────────────
+
+const PUBLIC_DIR = path.join(path.dirname(fileURLToPath(import.meta.url)), "public");
+app.use(express.static(PUBLIC_DIR, { index: "index.html", maxAge: "5m" }));
+
+// Per-IP limit on pairing requests so the public page can't be used to spam
+// WhatsApp with pairing codes: PAIR_LIMIT requests per PAIR_WINDOW_MIN minutes.
+const PAIR_LIMIT = Number(process.env.PAIR_LIMIT) || 5;
+const PAIR_WINDOW_MS = (Number(process.env.PAIR_WINDOW_MIN) || 10) * 60_000;
+const pairHits = new Map();
+setInterval(() => {
+  const now = Date.now();
+  for (const [ip, hits] of pairHits) {
+    const fresh = hits.filter((t) => now - t < PAIR_WINDOW_MS);
+    fresh.length ? pairHits.set(ip, fresh) : pairHits.delete(ip);
+  }
+}, 60_000).unref();
+
+const pairRateLimit = (req, res, next) => {
+  const now = Date.now();
+  const hits = (pairHits.get(req.ip) || []).filter((t) => now - t < PAIR_WINDOW_MS);
+  if (hits.length >= PAIR_LIMIT) {
+    const retry = Math.ceil((PAIR_WINDOW_MS - (now - hits[0])) / 1000);
+    res.set("Retry-After", String(retry));
+    return fail(res, 429, `Too many attempts. Try again in ${Math.ceil(retry / 60)} min.`);
+  }
+  hits.push(now);
+  pairHits.set(req.ip, hits);
+  next();
+};
+
+// Management routes (list/start/stop/logout) are protected when ADMIN_KEY is set.
+// Send it as the "x-admin-key" header or ?key= query param.
+const adminOnly = (req, res, next) => {
+  const key = process.env.ADMIN_KEY;
+  if (!key) return next();
+  if ((req.get("x-admin-key") || req.query.key) === key) return next();
+  return fail(res, 401, "Unauthorized");
+};
+
+app.get("/api/status", (_req, res) => {
   res.json({
     ok: true,
     status: "Baileys Multi-Session Bot",
@@ -133,7 +176,7 @@ app.get("/", (_req, res) => {
   });
 });
 
-app.get("/sessions", (_req, res) => {
+app.get("/sessions", adminOnly, (_req, res) => {
   res.json({ ok: true, sessions: manager.list() });
 });
 
@@ -144,6 +187,7 @@ app.get("/plugins", (_req, res) => {
 // Wakes the saved session for a phone number; the socket may still be connecting
 app.get(
   "/start/:phone",
+  adminOnly,
   route(async (req, res) => {
     const phone = digitsOnly(req.params.phone);
     if (!validPhone(phone)) return fail(res, 400, "Invalid phone number");
@@ -163,7 +207,7 @@ app.get(
 );
 
 // Creates a pairing code for a new WhatsApp link
-app.get("/pair/:num", async (req, res) => {
+app.get("/pair/:num", pairRateLimit, async (req, res) => {
   const phone = digitsOnly(req.params.num);
   if (!validPhone(phone)) {
     return fail(
@@ -226,6 +270,7 @@ app.get("/pair/:num", async (req, res) => {
 // Graceful stop, credentials are kept
 app.post(
   "/stop/:sessionId",
+  adminOnly,
   withSid(async (req, res) => {
     const ok = await manager.stop(req.sid);
     res.json({ ok, sessionId: req.sid });
@@ -235,6 +280,7 @@ app.post(
 // Permanent logout, credentials are deleted
 app.post(
   "/logout/:sessionId",
+  adminOnly,
   withSid(async (req, res) => {
     const ok = await manager.logout(req.sid);
     res.json({ ok, sessionId: req.sid });
