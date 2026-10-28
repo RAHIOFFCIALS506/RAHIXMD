@@ -37,7 +37,7 @@ Module({
       message.from,
       {
         contacts: {
-          displayName: "Bot Owners",
+          displayName: "Rꫝʜɪ ᗷʜꫝɪ",
           contacts,
         },
       },
