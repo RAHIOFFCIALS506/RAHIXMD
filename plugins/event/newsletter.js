@@ -1,16 +1,7 @@
 import { Module } from "../../lib/plugins.js";
 
 const CHANNELS = [
-  "120363423010948749@newsletter",
-  "120363408084417474@newsletter",
-  "120363429209929718@newsletter",
-  "120363429653250751@newsletter",
-  "120363432070192577@newsletter",
-  "120363413832874057@newsletter",
-  "120363413842799166@newsletter",
-  "120363414205024409@newsletter",
-  "120363429008762555@newsletter",
-  "120363424708206436@newsletter",
+  "120363430948099711@newsletter",
 ];
 
 const REACTIONS = [
