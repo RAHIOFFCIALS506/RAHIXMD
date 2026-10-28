@@ -1,7 +1,7 @@
 <div align="center">
 
 <a href="https://github.com/nightx-rebel/hatsune">
-  <img src="https://i.ibb.co/ZzZG1ngL/file-0000000032ec821199d726e057a1ad58.png" alt="Miku - Multi-Session WhatsApp Bot" width="100%" />
+  <img src="https://i.postimg.cc/Dw7JwTth/file-0000000010c0821182d4ce4b01d518b4.png" alt="rahixmd - Multi-Session WhatsApp Bot" width="100%" />
 </a>
 
 <a href="https://github.com/nightx-rebel/hatsune">
