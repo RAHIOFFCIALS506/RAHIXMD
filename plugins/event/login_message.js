@@ -4,7 +4,7 @@ import { detectPlatformName } from "../../lib/handier.js";
 
 async function makeThumb(logger, sessionId) {
   try {
-    const res = await fetch("https://files.catbox.moe/3n6es2.jpg");
+    const res = await fetch("https://i.postimg.cc/Dw7JwTth/file-0000000010c0821182d4ce4b01d518b4.png");
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const image = await Jimp.read(Buffer.from(await res.arrayBuffer()));
     image.resize({ w: 300, h: 300 });
@@ -45,7 +45,7 @@ Module({ on: "connected", name: "welcome" })(async (ctx) => {
       `*╰━━━━━━━━━━╯*`,
       ``,
       `*╭━〔📞 𝗖𝗢𝗡𝗧𝗔𝗖𝗧〕━✦*`,
-      `*┃🌚 𝐒𝐔𝐏𝐏𝐎𝐑𝐓    :* https://t.me/xmiku_chat`,
+      `*┃🌚 𝐒𝐔𝐏𝐏𝐎𝐑𝐓    :* https://chat.whatsapp.com/GEB47Z2mycj6FZufQuxKq5?s`,
       `*╰━━━━━━━━━━━╯*`,
     ].join("\n");
 
@@ -68,7 +68,7 @@ Module({ on: "connected", name: "welcome" })(async (ctx) => {
             },
           ],
           contentText: start_msg,
-          footerText: "𝐓𝐇𝐀𝐍𝐊𝐒 𝐅𝐎𝐑 ♡ Miku 𝐂𝐇𝐎𝐎𝐒𝐈𝐍𝐆",
+          footerText: "𝐓𝐇𝐀𝐍𝐊𝐒 𝐅𝐎𝐑 ♡ RAHIXMD 𝐂𝐇𝐎𝐎𝐒𝐈𝐍𝐆",
           contextInfo: {
             mentionedJid: [],
             groupMentions: [],
