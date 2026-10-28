@@ -28,7 +28,7 @@ Module({
         "BEGIN:VCARD\n" +
         "VERSION:3.0\n" +
         `FN:${name}\n` +
-        `ORG:x-miku;\n` +
+        `ORG:Rꫝʜɪ ᗷʜꫝɪ;\n` +
         `TEL;type=CELL;type=VOICE;waid=${number}:${number}\n` +
         "END:VCARD",
     }));
