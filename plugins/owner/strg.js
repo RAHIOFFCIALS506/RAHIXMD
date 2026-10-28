@@ -85,7 +85,7 @@ Module({
 });
 
 Module({
-  command: "mikustrg",
+  command: "rahistrg",
   package: "owner",
   description:
     "Bind a sticker to a command — reply to a sticker with .strg <cmdname>",
