@@ -72,7 +72,7 @@ Module({
     message.from,
     {
       text: `*${emoji} } Ꭾ❤️‍🩹ŇᎶ: ${latency} ๓Ş*`,
-      footer: "Ᏼɪᴛᴛᴜ ⸙",
+      footer: "Rᴀʜɪ ⸙",
       buttons: [
         {
           buttonId: ".alive",
