@@ -9,9 +9,9 @@ const isTrue = (x) => x === "true" || x === true;
 export default {
   // ─── General ───────────────────────────────────
   prefix: ".",
-  BOT_NAME: process.env.BOT_NAME || "miku",
+  BOT_NAME: process.env.BOT_NAME || "ʀᴀʜɪxᴍᴅ",
   packname: process.env.PACKNAME || "bot",
-  author: process.env.AUTHOR || "x-Miku",
+  author: process.env.AUTHOR || "ʀᴀʜɪxᴍᴅ",
   THEME: process.env.THEME || "t",
   giftname: "miku",
   GROUP_LINKS: [],
