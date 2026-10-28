@@ -12,9 +12,9 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const videoPath = path.join(__dirname, "bin", "menu.mp4");
-const name = "╳-♡ Miku ♡🫶🏻❤️‍🩹";
+const name = "Rᴀʜɪ xᴍᴅ ♡";
 const BOT_PIC_URL =
-  "https://i.pinimg.com/736x/92/05/a2/9205a2141d9ac9764b3a1b9c409d722e.jpg";
+  "https://i.postimg.cc/Dw7JwTth/file-0000000010c0821182d4ce4b01d518b4.png";
 
 const runtime = (secs) => {
   const pad = (s) => s.toString().padStart(2, "0");
@@ -103,7 +103,7 @@ async function sendMenuLocationButtons(sock, from, botPic, botName, menuText) {
           },
         ],
         contentText: menuText,
-        footerText: "Made with love by X-♡Miku♡",
+        footerText: "Made with love by ʀᴀʜɪ_xᴍᴅ♡",
         contextInfo: {
           mentionedJid: [],
           groupMentions: [],
@@ -180,10 +180,10 @@ Module({
 *┃🔖 ʀᴀᴍ     :* ${ram}
 *┃🌨️ ᴛɪᴍᴇ    :* ${time}
 *┃🫂 ᴜsᴇʀ    :* ${userName}
-*┃🕊️ ᴘᴀɪʀ   :* t.me/x_miku_1
+*┃🕊️ ᴅᴇᴠ   :* Rᴀʜɪ Bʜᴀɪ
 *╰════════════⊷*
 ${readMore}
-*♡︎•━━━Miku🤌🏻━━━•♡*
+*♡︎•━━━ʀᴀʜɪxᴍᴅ━━━•♡*
 `;
       if (match && !grouped[match.toLowerCase()]) {
         _cmd_st += `\n🍌 *Package not found: ${match}*\n\n`;
@@ -260,7 +260,7 @@ Module({
       out += ` *┕─────────────❒*\n`;
     }
 
-    out += `\n*♡︎•━━━Miku━━━•♡*`;
+    out += `\n*♡︎•━━━ʀᴀʜɪxᴍᴅ━━━•♡*`;
 
     await message.conn.sendMessage(message.from, {
       text: out,
